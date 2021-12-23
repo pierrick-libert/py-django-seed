@@ -1,8 +1,12 @@
-# Base django app
+# Django Seed
 
-Requires Python 3.9, Django 3+, Postgresql 14+ and Redis 5+.
+The purpose of this repository is just to share a homemade seed to create an API and CMS in Python 3, Django and Django Rest Framework.
 
-## Install
+You can setup this project with a Docker and manually.
+
+## Manual Installation
+
+Requires [Python 3.9](https://www.python.org/downloads/) and [Postgresql 13+](https://www.postgresql.org/download/)
 
 To install all dependencies:
 
@@ -16,24 +20,50 @@ To delete all dependencies:
 make clean
 ```
 
-## Run
+All the command from the Makefile would require to have your environment setup with the variables listed at the end of this file.
+You may used `example.env` as a sample.
 
-This django app has been setup for multi-settings mode (app/settings), two dummy settings have been created:
+### Run
+
+This django app has been setup for multi-settings mode (app/settings), two settings have been created:
 
  * api
  * web
 
-There are inheriting everything from app/settings/base.py, you are free to delete or modify them.
+There are inheriting everything from app/settings/base.py.
 
 Here is an example of commands you can run for the `api` settings:
 
 ```bash
-make setting=api server
-make setting=api migrate
 make setting=api migrations
+make setting=api migrate
+make setting=api port=8080 server
 ```
 
 The server will be ready on http://localhost:8080.
+
+## Automatic Installation
+
+Requires [Docker 20+](https://docs.docker.com/get-docker/) and [Docker Compose 1+](https://docs.docker.com/compose/install/)
+
+```bash
+docker-compose up --build
+````
+
+### Run
+
+As explained above, you have two different settings you can launch, with docker both of them will be ready on:
+
+ * api: `http://localhost:8081`
+ * cms: `http://localhost:8082`
+
+## CMS
+
+To be able to access the CMS, you'll have to create a super user beforehand with the command:
+
+```bash
+make setting=web superuser
+````
 
 ## API
 
@@ -63,7 +93,7 @@ make setting=api swagger-check
 
 ### Test
 
-You can test the API by launching this commad:
+You can test the API by launching this command:
 
 ```bash
 make setting=api app=api test_app
@@ -75,7 +105,7 @@ make setting=api app=api test_app
 make lint
 ```
 
-In order to enforce a certain code quality, [pylint-fail-under](https://pypi.org/project/pylint-fail-under/) is used, and is configured to fail if the score is below 9.0 (see Makefile).
+In order to enforce a certain code quality, the option `--fail-under` is used, and is configured to fail if the score is below 9.0 (see Makefile).
 
 Before each Pull Request, we expect developers to run this command and fix most of errors or warnings displayed.
 
@@ -108,7 +138,7 @@ The way to use it is:
 In python code:
 
 ```python
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 return JsonResponse({'message': _('NoFortune')}, status=404)
 ```
@@ -137,26 +167,6 @@ Note for the ops: the compiled files won't be kept in git, so they have to be re
 ➜  django-seed git:(master) ✗ curl http://localhost:8080/sample/ -H 'Accept-Language: fr'
 {"message": "Succès"}
 ```
-
-### Web Example:
-
-Url code:
-
-```python
-from django.conf.urls.i18n import i18n_patterns
-
-# This will set a /<lang> at the base of all URLs
-urlpatterns += i18n_patterns(
-    path('fortune/', include('fortune_web.urls'))
-)
-```
-
-You can now call:
-
- * http://localhost:8080/en-us/fortune/
- * http://localhost:8080/fr/fortune/
-
-Note: You can also use `i18n_patterns` for your API, but by default `Accept-Language` is there, so do as you want.
 
 ## OPS
 
