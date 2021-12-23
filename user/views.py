@@ -1,6 +1,4 @@
-'''
-    Collection of views for user app
-'''
+'''Collection of views for user app'''
 from django.conf import settings
 
 from django.urls import reverse_lazy
@@ -8,8 +6,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.http import HttpResponseRedirect
 
-from common.mixins import (FilterListViewMixin, OrderListViewMixin,
-                           SuperuserAccessOnly)
+from common.mixins import (
+    FilterListViewMixin, OrderListViewMixin, SuperuserAccessOnly
+)
 
 from .filters import CustomUserFilter
 from .forms import CustomUserForm
@@ -37,8 +36,7 @@ class UserCreateView(SuperuserAccessOnly, CreateView):
     success_url = reverse_lazy('user:user-list')
 
     def form_valid(self, form: CustomUserForm) -> HttpResponseRedirect:
-        '''Form valid method
-        '''
+        '''Form valid method'''
         password = form.cleaned_data.get('password')
         user = form.instance
         user.set_password(password)

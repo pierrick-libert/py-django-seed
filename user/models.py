@@ -1,11 +1,10 @@
 '''Collection of models for user app'''
-from typing import Dict
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from common.helper import make_uuid
 
+from .types import UserJSONType
 from .managers import CustomUserRole, UserManager
 
 
@@ -33,7 +32,7 @@ class CustomUser(AbstractUser):
         '''Return username'''
         return f'{self.first_name} {self.last_name}'
 
-    def to_json(self) -> Dict[str, str]:
+    def to_json(self) -> UserJSONType:
         '''Return a formatted JSON for this model'''
         return {
             'id': str(self.id),

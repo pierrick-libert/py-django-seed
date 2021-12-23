@@ -1,6 +1,6 @@
 '''Collection of filters for user app'''
 import django_filters
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from common.helper import BOOLEAN_CHOICES
 from common.mixins import FilterPlaceholderSetup

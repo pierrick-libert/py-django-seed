@@ -1,9 +1,7 @@
-'''
-Collection of managers for user
-'''
+'''Collection of managers for user'''
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserRole(models.TextChoices):
@@ -18,7 +16,6 @@ class CustomUserRole(models.TextChoices):
 
 class UserManager(BaseUserManager):
     '''Define a model manager for User model with no username field.'''
-
     use_in_migrations = True
 
     def _create_user(self, email: str, password: str, **extra_fields) -> 'CustomUser':

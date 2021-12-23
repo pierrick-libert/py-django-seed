@@ -1,16 +1,16 @@
 '''Sample logic for API'''
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import status, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.helper import get_languages_array
+from api.utils.mixins import RequestLanguageMixin
 
 from .serializers import SampleNonGenericSerializer
 
 
-class SampleView(viewsets.ViewSet):
+class SampleView(RequestLanguageMixin, viewsets.ViewSet):
     '''API view for Sample'''
     lookup_field = 'sample_id'
 
@@ -20,12 +20,7 @@ class SampleView(viewsets.ViewSet):
         GET /sample
         List all samples
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
         return Response({'message': _('Success')}, status=status.HTTP_200_OK)
-
 
     # pylint: disable=invalid-name, no-self-use
     def retrieve(self, request: Request, sample_id: str = None) -> Response:
@@ -33,12 +28,7 @@ class SampleView(viewsets.ViewSet):
         GET /sample/<sample_id>
         Retrieve a specific sample
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
         return Response({'message': _('Success')}, status=status.HTTP_200_OK)
-
 
     # pylint: disable=no-self-use
     def create(self, request: Request) -> Response:
@@ -46,12 +36,7 @@ class SampleView(viewsets.ViewSet):
         POST /sample
         Create a sample
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
         return Response({'message': _('Success')}, status=status.HTTP_201_CREATED)
-
 
     # pylint: disable=invalid-name, no-self-use
     def update(self, request: Request, sample_id: str = None) -> Response:
@@ -59,12 +44,7 @@ class SampleView(viewsets.ViewSet):
         PUT /sample/<sample_id>
         Update a sample
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
         return Response({'message': _('Success')}, status=status.HTTP_200_OK)
-
 
     # pylint: disable=invalid-name, no-self-use
     def destroy(self, request: Request, sample_id: str = None) -> Response:
@@ -72,12 +52,7 @@ class SampleView(viewsets.ViewSet):
         DELETE /sample/<sample_id>
         Delete a sample
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
         return Response({'message': _('Success')}, status=status.HTTP_200_OK)
-
 
     # pylint: disable=no-self-use
     def post_sample_non_generic(self, request: Request) -> Response:
@@ -85,10 +60,8 @@ class SampleView(viewsets.ViewSet):
         POST /sample/non-generic
         Sample non generic view
         '''
-        # If the language is not in the handled languages, we set it as default
-        lang = request.META.get('HTTP_ACCEPT_LANGUAGE')
-        if lang not in get_languages_array():
-            lang = 'en'
+        # Access the language got from the mixins RequestLanguageMixin
+        print(request.lang)
 
         # Check the data validity
         serializer = SampleNonGenericSerializer(data=request.data)

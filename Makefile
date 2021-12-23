@@ -24,7 +24,7 @@ superuser:
 	DJANGO_SETTINGS_MODULE=app.settings.$(setting) . env/bin/activate && python3.9 manage.py createsuperuser
 
 lint:
-	DJANGO_SETTINGS_MODULE=app.settings.$(setting) . env/bin/activate && pylint-fail-under --fail_under 9.0 --load-plugins pylint_django --disable=duplicate-code app/**.py common/**.py tasks/*.py user/**.py api/**.py
+	DJANGO_SETTINGS_MODULE=app.settings.$(setting) . env/bin/activate && pylint --fail-under 9.0 --load-plugins pylint_django --disable=duplicate-code app/**.py common/**.py tasks/*.py user/**.py api/**.py
 
 test:
 	DJANGO_SETTINGS_MODULE=app.settings.${setting} . env/bin/activate && python3.9 manage.py test --pattern="test_*.py"

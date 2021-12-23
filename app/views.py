@@ -7,8 +7,8 @@ from django.template.response import TemplateResponse
 from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.utils.http import is_safe_url
-from django.utils.translation import ugettext as _
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -60,7 +60,9 @@ class LoginView(FormView):
     def get_success_url(self) -> str:
         '''Create the success URL from the request and hosts'''
         redirect_to = self.request.GET.get(REDIRECT_FIELD_NAME)
-        if not is_safe_url(url=redirect_to, allowed_hosts=self.request.get_host()):
+        if not url_has_allowed_host_and_scheme(
+            url=redirect_to, allowed_hosts=self.request.get_host()
+        ):
             redirect_to = self.success_url
         return redirect_to
 

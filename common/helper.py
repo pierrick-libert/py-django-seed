@@ -4,7 +4,7 @@ import uuid
 from enum import Enum
 from typing import Any, Dict, List, Tuple
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 BOOLEAN_CHOICES = [(1, _('Yes')), (0, _('No'))]

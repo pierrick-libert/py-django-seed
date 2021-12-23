@@ -1,5 +1,4 @@
-'''Collection of urls for user app
-'''
+'''Collection of urls for user app'''
 from django.urls import path
 
 from .views import UserCreateView, UserListView, UserUpdateView
