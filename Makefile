@@ -30,7 +30,7 @@ test:
 	DJANGO_SETTINGS_MODULE=app.settings.${setting} . env/bin/activate && python3.9 manage.py test --pattern="test_*.py"
 
 test_app:
-	TESTS_DB="True" DJANGO_SETTINGS_MODULE=app.settings.${setting} . env/bin/activate && python3.9 manage.py test ${app} --pattern="test_*.py"
+	DJANGO_SETTINGS_MODULE=app.settings.${setting} . env/bin/activate && python3.9 manage.py test ${app} --pattern="test_*.py"
 
 swagger-check:
 	swagger-cli validate app/static/swagger/api.swagger.yml || echo 'You need to install swagger-cli first with npm'
