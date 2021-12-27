@@ -9,12 +9,12 @@ services:
             - postgres
         environment:
             - POSTGRESQL_ADDON_HOST=postgres
-            - POSTGRESQL_ADDON_DB=django_seed
+            - POSTGRESQL_ADDON_DB=${POSTGRESQL_ADDON_DB:-django_seed}
             - POSTGRESQL_ADDON_PASSWORD=${POSTGRESQL_ADDON_PASSWORD:-toto42}
             - POSTGRESQL_ADDON_USER=${POSTGRESQL_ADDON_USER:-postgres}
             - POSTGRESQL_ADDON_PORT=5432
             - DJANGO_SETTINGS_MODULE=app.settings.web
-            - SENTRY_DSN=sentry_url
+            - SENTRY_DSN=${SENTRY_URL}
             - DEBUG=${DEBUG:-true}
         ports:
             - 8082:8082
@@ -31,12 +31,12 @@ services:
             - postgres
         environment:
             - POSTGRESQL_ADDON_HOST=postgres
-            - POSTGRESQL_ADDON_DB=django_seed
+            - POSTGRESQL_ADDON_DB=${POSTGRESQL_ADDON_DB:-django_seed}
             - POSTGRESQL_ADDON_PASSWORD=${POSTGRESQL_ADDON_PASSWORD:-toto42}
             - POSTGRESQL_ADDON_USER=${POSTGRESQL_ADDON_USER:-postgres}
             - POSTGRESQL_ADDON_PORT=5432
             - DJANGO_SETTINGS_MODULE=app.settings.api
-            - SENTRY_DSN=sentry_url
+            - SENTRY_DSN=${SENTRY_URL}
             - DEBUG=${DEBUG:-true}
         ports:
             - 8081:8081
@@ -52,7 +52,7 @@ services:
         environment:
             - POSTGRES_PASSWORD=toto42
             - POSTGRES_USER=postgres
-            - POSTGRES_DB=django_seed
+            - POSTGRES_DB=${POSTGRESQL_ADDON_DB:-django_seed}
         networks:
             - django-seed-network
 networks:
