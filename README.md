@@ -9,13 +9,11 @@ You can setup this project with a Docker and manually.
 Requires [Python 3.9](https://www.python.org/downloads/) and [Postgresql 13+](https://www.postgresql.org/download/)
 
 To install all dependencies:
-
 ```bash
 make install
 ```
 
 To delete all dependencies:
-
 ```bash
 make clean
 ```
@@ -76,11 +74,7 @@ make install
 make setting=api server
 ```
 
-Then goes on this URL:
-
-```bash
-http://127.0.0.1:8080/api/swagger
-```
+Then goes on this URL `http://127.0.0.1:8080/api/swagger`.
 
 You can check the validity of the swagger by installing `swagger-cli` through the command:
 ```bash
@@ -94,13 +88,11 @@ make setting=api swagger-check
 ### Test
 
 You can test the API by launching this command:
-
 ```bash
 make setting=api app=api test_app
 ```
 
 ## Code linting
-
 ```bash
 make lint
 ```
@@ -115,11 +107,19 @@ As part of the linting, be aware you have to use [typings](https://docs.python.o
 
 ## Other commands
 
-Create a superuser:
+### Super User creation
 
 ```bash
 make settings=xxx superuser
 ```
+
+### Greenkeeping
+
+```bash
+make greenkeeping
+```
+
+Then run the tests, as explained above, to verify nothing has been broken.
 
 ## i18N
 
@@ -187,7 +187,6 @@ make setting=api celery
 ### Tasks
 
 In order to use your task (decorated with `@shared_task`), launch the celery server and in another console you can do the following:
-
 ```bash
 make setting=api shell
 from tasks.tasks import test

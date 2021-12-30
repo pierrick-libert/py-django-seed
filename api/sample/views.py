@@ -5,6 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from api.utils.utils import serializer_errors_to_string
 from api.utils.mixins import RequestLanguageMixin
 
 from .serializers import SampleNonGenericSerializer
@@ -66,7 +67,9 @@ class SampleView(RequestLanguageMixin, viewsets.ViewSet):
         # Check the data validity
         serializer = SampleNonGenericSerializer(data=request.data)
         if serializer.is_valid() is False:
-            return Response({'message': _('Error')}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                'message': serializer_errors_to_string(serializer.errors)},
+                status=status.HTTP_400_BAD_REQUEST)
 
         # Get the data from serializer
         data = serializer.validated_data
