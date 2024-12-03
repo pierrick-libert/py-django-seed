@@ -48,7 +48,7 @@ The server will be ready on <http://localhost:8080>.
 
 ## Automatic Installation
 
-Requires [Docker 20+](https://docs.docker.com/get-docker/) and [Docker Compose 1+](https://docs.docker.com/compose/install/)
+Requires [Docker 27+](https://docs.docker.com/get-docker/) and [Docker Compose 2+](https://docs.docker.com/compose/install/)
 
 ```bash
 docker-compose up --build
@@ -134,7 +134,7 @@ Then run the tests, as explained above, to verify nothing has been broken.
 
 ## i18N
 
-The translation files (po) are in locale/<lang>/LC_MESSAGES/django.po.
+The translation files (po) are in locale/`{lang}`/LC_MESSAGES/django.po.
 
 ### To generate them
 

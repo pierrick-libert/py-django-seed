@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "rand0m&k3yF0R-someus3"
+SECRET_KEY = os.environ.get("SECRET_KEY", "rand0m&k3yF0R-someus3")  # nosec pragma: allowlist secret
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "true").lower() == "true"
@@ -158,7 +158,6 @@ LOGGING = {
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [("en", "English"), ("fr", "French")]

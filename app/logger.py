@@ -41,13 +41,14 @@ class RequestLogMiddleware:
     @staticmethod
     def extract_log_info(request: WSGIRequest, response: TemplateResponse = None) -> CustomLogInfoType:
         """Extract appropriate log info from requests/responses/exceptions"""
-        log_data = {
+        log_data: CustomLogInfoType = {
             "remote_address": request.META.get("REMOTE_ADDR", "-"),
-            "user_agent": request.META.get("HTTP_USER_AGENT", "-"),
+            "user_agent": request.headers.get("user-agent", "-"),
             "server_hostname": socket.gethostname(),
             "request_method": request.method,
             "request_path": request.get_full_path(),
             "execution_time": f"{(time.time() - request.start_time):.2f} sec",
+            "response_code": None,
         }
         if response:
             log_data["response_code"] = response.status_code

@@ -2,7 +2,7 @@
 
 import uuid
 from enum import Enum
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from django.utils.translation import gettext_lazy as _
 
@@ -45,17 +45,17 @@ class BaseEnum(Enum):
     """
 
     @classmethod
-    def choices(cls) -> Tuple[Any, Any]:
+    def choices(cls) -> tuple[tuple[Any, Any], ...]:
         """Returns tuples for models"""
         return tuple((x.value, x.value) for x in cls)
 
     @classmethod
-    def array_of_choices(cls) -> List[Any]:
+    def array_of_choices(cls) -> list[Any]:
         """Returns all possible choices in an array"""
         return list(x.value for x in cls)
 
 
-def get_languages() -> Dict[str, str]:
+def get_languages() -> tuple[tuple[str, Any], ...]:
     """Get handled languages"""
     return (
         ("en", _("en")),
@@ -63,7 +63,7 @@ def get_languages() -> Dict[str, str]:
     )
 
 
-def get_languages_array() -> List[str]:
+def get_languages_array() -> list[str]:
     """Get handled languages in an array"""
     languages = []
     for lang in get_languages():

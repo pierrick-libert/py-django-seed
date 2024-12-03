@@ -25,7 +25,7 @@ class SampleView(RequestLanguageMixin, viewsets.ViewSet):
         return Response({"message": _("Success")}, status=status.HTTP_200_OK)
 
     # pylint: disable=invalid-name, no-self-use
-    def retrieve(self, request: Request, sample_id: str = None) -> Response:
+    def retrieve(self, request: Request, sample_id: str = "") -> Response:
         """
         GET /sample/<sample_id>
         Retrieve a specific sample
@@ -41,7 +41,7 @@ class SampleView(RequestLanguageMixin, viewsets.ViewSet):
         return Response({"message": _("Success")}, status=status.HTTP_201_CREATED)
 
     # pylint: disable=invalid-name, no-self-use
-    def update(self, request: Request, sample_id: str = None) -> Response:
+    def update(self, request: Request, sample_id: str = "") -> Response:
         """
         PUT /sample/<sample_id>
         Update a sample
@@ -49,7 +49,7 @@ class SampleView(RequestLanguageMixin, viewsets.ViewSet):
         return Response({"message": _("Success")}, status=status.HTTP_200_OK)
 
     # pylint: disable=invalid-name, no-self-use
-    def destroy(self, request: Request, sample_id: str = None) -> Response:
+    def destroy(self, request: Request, sample_id: str = "") -> Response:
         """
         DELETE /sample/<sample_id>
         Delete a sample

@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField("Email address", unique=True)
     role = models.CharField(choices=CustomUserRole.choices, max_length=20, default=CustomUserRole.USER)
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS: list[str] = []
     objects = UserManager()
 
     def __str__(self) -> str:

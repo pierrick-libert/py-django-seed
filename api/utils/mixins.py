@@ -13,8 +13,8 @@ class RequestLanguageMixin:
     def dispatch(self, request: Request, *args, **kwargs) -> Response:
         """Get the language and save into the request"""
         # If the language is not in the handled languages, we set it as default
-        request.lang = request.META.get("HTTP_ACCEPT_LANGUAGE")
+        request.lang = request.headers.get("accept-language")
         if request.lang not in get_languages_array():
             request.lang = "fr"
 
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)  # type: ignore

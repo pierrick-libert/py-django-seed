@@ -1,8 +1,13 @@
 """Collection of managers for user"""
 
+from typing import TYPE_CHECKING
+
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from user.models import CustomUser
 
 
 class CustomUserRole(models.TextChoices):

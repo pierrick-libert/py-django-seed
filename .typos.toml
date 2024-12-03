@@ -1,0 +1,6 @@
+[files]
+# Exclude specific files or directories
+extend-exclude = [
+    "app/static/assets/media/",
+    "app/static/assets/plugins/"
+]

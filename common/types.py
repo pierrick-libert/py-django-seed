@@ -1,6 +1,6 @@
 """A list of custom type"""
 
-from typing import Optional, TypedDict
+from typing import TypedDict
 
 from django.core.paginator import Page
 from django.forms import ModelForm
@@ -29,7 +29,7 @@ class CustomHeadCellType(TypedDict):
 
     title: str
     field: str
-    arrow_class: str
+    arrow_class: str | None
     ordering_fields: str
     order_by: str
 
@@ -43,4 +43,4 @@ class CustomLogInfoType(TypedDict):
     request_method: str
     request_path: str
     execution_time: str
-    response_code: Optional[str]
+    response_code: str | None

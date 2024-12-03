@@ -1,6 +1,6 @@
 """Collection of common mixins"""
 
-from typing import Optional
+from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.handlers.wsgi import WSGIRequest
@@ -8,6 +8,7 @@ from django.db import models
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.views import View
+from django.views.generic import ListView
 from django.views.generic.edit import DeleteView
 
 from user.models import CustomUserRole
@@ -34,13 +35,13 @@ class DeleteViewMixin(DeleteView):
         return HttpResponseRedirect(self.success_url)
 
 
-class OrderListViewMixin:
+class OrderListViewMixin(ListView):
     """Order mixin allow ordering by views in view"""
 
-    ordering_fields = []
+    ordering_fields: list[str] = []
 
     # pylint: disable=bare-except
-    def get_ordering(self) -> Optional[str]:
+    def get_ordering(self) -> str | None:
         """Get ordering from url"""
         try:
             return self.request.GET.get("ordering", None) or super().get_ordering()[0]
@@ -55,16 +56,16 @@ class OrderListViewMixin:
         return context
 
 
-class FilterListViewMixin:
+class FilterListViewMixin(ListView):
     """Filter mixin which does filter on get from url params, and attach form to view"""
 
-    filterset_class = None
+    filterset_class: Any
 
     # pylint: disable=not-callable
     def get_queryset(self) -> models.QuerySet:
         """Get queryset update queryset with filters"""
         queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, request=self.request)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, request=self.request)  # type: ignore
         return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs) -> RequestContext:
