@@ -6,14 +6,20 @@ You can setup this project with a Docker and manually.
 
 ## Manual Installation
 
-Requires [Python 3.9](https://www.python.org/downloads/) and [Postgresql 13+](https://www.postgresql.org/download/)
+Requires [Python 3.12](https://www.python.org/downloads/) and [Postgresql 17+](https://www.postgresql.org/download/)
+
+Setup your favourite virtual environment before using the below commands.
+
+Personally I prefer to use [Pyenv](https://github.com/pyenv/pyenv).
 
 To install all dependencies:
+
 ```bash
 make install
 ```
 
 To delete all dependencies:
+
 ```bash
 make clean
 ```
@@ -25,8 +31,8 @@ You may used `example.env` as a sample.
 
 This django app has been setup for multi-settings mode (app/settings), two settings have been created:
 
- * api
- * web
+* api
+* web
 
 There are inheriting everything from app/settings/base.py.
 
@@ -38,7 +44,7 @@ make setting=api migrate
 make setting=api port=8080 server
 ```
 
-The server will be ready on http://localhost:8080.
+The server will be ready on <http://localhost:8080>.
 
 ## Automatic Installation
 
@@ -46,14 +52,14 @@ Requires [Docker 20+](https://docs.docker.com/get-docker/) and [Docker Compose 1
 
 ```bash
 docker-compose up --build
-````
+```
 
 ### Run
 
 As explained above, you have two different settings you can launch, with docker both of them will be ready on:
 
- * api: `http://localhost:8081`
- * cms: `http://localhost:8082`
+* api: `http://localhost:8081`
+* cms: `http://localhost:8082`
 
 ## CMS
 
@@ -61,7 +67,7 @@ To be able to access the CMS, you'll have to create a super user beforehand with
 
 ```bash
 make setting=web superuser
-````
+```
 
 ## API
 
@@ -77,10 +83,13 @@ make setting=api server
 Then goes on this URL `http://127.0.0.1:8080/api/swagger`.
 
 You can check the validity of the swagger by installing `swagger-cli` through the command:
+
 ```bash
 npm install -g swagger-cli
 ```
+
 Then you can launch the command:
+
 ```bash
 make setting=api swagger-check
 ```
@@ -88,11 +97,13 @@ make setting=api swagger-check
 ### Test
 
 You can test the API by launching this command:
+
 ```bash
 make setting=api app=api test_app
 ```
 
 ## Code linting
+
 ```bash
 make lint
 ```
@@ -125,7 +136,7 @@ Then run the tests, as explained above, to verify nothing has been broken.
 
 The translation files (po) are in locale/<lang>/LC_MESSAGES/django.po.
 
-### To generate them:
+### To generate them
 
 ```bash
 make setting=web makemessages
@@ -150,7 +161,7 @@ In template:
 <p>{% trans 'YourFortune' %}</p>
 ```
 
-### To compile the messages (so that Django can use them) run:
+### To compile the messages (so that Django can use them) run
 
 ```bash
 make setting=web compilemessages
@@ -158,7 +169,7 @@ make setting=web compilemessages
 
 Note for the ops: the compiled files won't be kept in git, so they have to be re-generated at every deployment.
 
-### API Example:
+### API Example
 
 ```bash
 ➜  django-seed git:(master) ✗ curl http://localhost:8080/sample/
@@ -174,9 +185,9 @@ Note for the ops: the compiled files won't be kept in git, so they have to be re
 
 There is a Celery project embedded in this django project and it can be found in the following files:
 
- * app/__init__.py (imports the Celery config file)
- * app/main_celery.py (Celery config)
- * tasks/tasks.py (list of tasks)
+* app/__init__.py (imports the Celery config file)
+* app/main_celery.py (Celery config)
+* tasks/tasks.py (list of tasks)
 
 ### Run the server
 
@@ -187,7 +198,8 @@ make setting=api celery
 ### Tasks
 
 In order to use your task (decorated with `@shared_task`), launch the celery server and in another console you can do the following:
-```bash
+
+```python
 make setting=api shell
 from tasks.tasks import test
 test.delay({'test': 'abc', 'true': 'yes'})

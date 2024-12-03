@@ -1,0 +1,25 @@
+[tool.pylint.main]
+analyse-fallback-blocks = false
+clear-cache-post-run = false
+; disable = ["bad-inline-option", "consider-using-augmented-assign", "deprecated-pragma", "file-ignored", "locally-disabled", "prefer-typing-namedtuple", "raw-checker-failed", "suppressed-message", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero", "use-symbolic-message-instead", "useless-suppression"]
+
+evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10))"
+exit-zero = false
+fail-on = []
+fail-under = 9.0
+
+ignore = ["venv"]
+ignore-paths = ["vulture_whitelist.py"]
+ignore-patterns = ["^\\.#"]
+
+jobs = 0
+output-format=parseable
+
+persistent = true
+py-version = 3.12
+recursive = true
+reports = true
+score = true
+suggestion-mode = true
+unsafe-load-any-extension = false
+max-line-length=120

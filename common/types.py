@@ -1,27 +1,32 @@
-'''A list of custom type'''
+"""A list of custom type"""
+
 from typing import Optional, TypedDict
 
-from django.forms import ModelForm
 from django.core.paginator import Page
+from django.forms import ModelForm
 
 
 class CustomConditionType(TypedDict):
-    '''Type dict for condition'''
+    """Type dict for condition"""
+
     condition: bool
 
 
 class CustomFormType(TypedDict):
-    '''Type dict for form'''
+    """Type dict for form"""
+
     form: ModelForm
 
 
 class CustomPageType(TypedDict):
-    '''Type dict for pagination'''
+    """Type dict for pagination"""
+
     page_obj: Page
 
 
 class CustomHeadCellType(TypedDict):
-    '''Type dict for Head Cell Ordering'''
+    """Type dict for Head Cell Ordering"""
+
     title: str
     field: str
     arrow_class: str
@@ -30,7 +35,8 @@ class CustomHeadCellType(TypedDict):
 
 
 class CustomLogInfoType(TypedDict):
-    '''Type dict for Log Info middleware'''
+    """Type dict for Log Info middleware"""
+
     remote_address: str
     user_agent: str
     server_hostname: str

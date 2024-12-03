@@ -129,3 +129,4 @@ farmbox/static/
 .tool-versions
 
 .DS_STORE
+pylint_report.txt

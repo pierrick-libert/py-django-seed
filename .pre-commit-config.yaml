@@ -1,0 +1,129 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: trailing-whitespace
+        name: Remove Trailing Whitespace
+    -   id: end-of-file-fixer
+        name: Apply End of File Strategy
+    -   id: check-yaml
+        name: Check YAML File Syntax
+    -   id: check-json
+        name: Check JSON File Syntax
+    -   id: check-added-large-files
+        name: Prevent File >500kB
+    -   id: check-merge-conflict
+        name: Check Merge Conflict
+    -   id: check-ast
+        name: Check Python File Validity
+    -   id: debug-statements
+        name: Check for Debug Imports
+    -   id: detect-aws-credentials
+        name: Check for AWS Credential
+    -   id: detect-private-key
+        name: Detect Private Key Existence
+    -   id: forbid-new-submodules
+        name: Prevent New Submodules Addition
+    -   id: name-tests-test
+        name: Verify Test Files Naming Convention
+-   repo: https://github.com/crate-ci/typos
+    rev: v1.28.1
+    hooks:
+    -   id: typos
+        name: Resolve spelling mistakes
+-   repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.43.0
+    hooks:
+    -   id: markdownlint-fix
+        name: Run Markdown Linting
+-   repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.22.2
+    hooks:
+    -   id: django-upgrade
+        args:
+            - --target-version="5.1.3"
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.0
+    hooks:
+    -   id: pyupgrade
+        name: Automatically Upgrade Python Syntax to New Version
+-   repo: https://github.com/PyCQA/autoflake
+    rev: v2.3.1
+    hooks:
+    -   id: autoflake
+        name: Delete Unused Imports
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+    -   id: isort
+        name: Sort Imports
+        args: ["--profile", "black"]
+-   repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+    -   id: black
+        name: Run Code Formatter
+        language_version: python3
+        args: [--line-length=120]
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.8.0
+    hooks:
+    -   id: bandit
+        name: Check Common Security Issues
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+    -   id: mypy
+        name: Apply Static Typing
+        args:
+            - --explicit-package-bases
+            - --ignore-missing-imports
+            - --disable-error-code=import-untyped
+            - --config-file=mypy.ini
+-   repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+    -   id: detect-secrets
+        name: Detect Secrets
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.0.0
+    hooks:
+    -   id: commitizen
+        name: Check commit message
+        stages: [commit-msg]
+        language_version: python3
+-   repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.3.3
+    hooks:
+    -   id: python-safety-dependencies-check
+        name: Safety Dependency Check
+        args: ["--ignore=42194"]
+-   repo: https://github.com/jendrikseipp/vulture
+    rev: v2.13
+    hooks:
+    -   id: vulture
+        name: Find unused code
+        language_version: python3
+        args:
+            - --min-confidence=60
+            - --make-whitelist
+            - api
+            - app
+            - common
+            - tasks
+            - user
+            - vulture_whitelist.py
+-   repo: local
+    hooks:
+      - id: django-checks
+        name: Django Checks
+        entry: python manage.py check
+        language: system
+        types: [python]
+      - id: check-migrations
+        name: Check Migrations
+        entry: python manage.py makemigrations --check --dry-run
+        language: system
+        types: [python]

@@ -1,24 +1,24 @@
-'''Collection of forms for user app'''
+"""Collection of forms for user app"""
+
 from django import forms
 
 from .models import CustomUser
 
 
 class CustomUserForm(forms.ModelForm):
-    '''CustomUser form'''
+    """CustomUser form"""
 
     def __init__(self, *args, **kwargs):
-        '''Override init for the user form'''
+        """Override init for the user form"""
         super().__init__(*args, **kwargs)
         if not self.instance._state.adding:
-            self.fields['password'].required = False
+            self.fields["password"].required = False
 
     def save(self, commit: bool = True) -> CustomUser:
-        '''Override save method to handle user's password'''
-        if not self.instance._state.adding: # pylint: disable=W0212
-            password = self.cleaned_data.pop('password')
-            CustomUser.objects.filter(
-                pk=self.instance.pk).update(**self.cleaned_data)
+        """Override save method to handle user's password"""
+        if not self.instance._state.adding:  # pylint: disable=W0212
+            password = self.cleaned_data.pop("password")
+            CustomUser.objects.filter(pk=self.instance.pk).update(**self.cleaned_data)
 
             user = CustomUser.objects.get(pk=self.instance.pk)
             if password:
@@ -27,7 +27,7 @@ class CustomUserForm(forms.ModelForm):
 
         else:
             user = super().save(commit=False)
-            password = self.cleaned_data.pop('password')
+            password = self.cleaned_data.pop("password")
             if password:
                 user.set_password(password)
             if commit:
@@ -35,13 +35,9 @@ class CustomUserForm(forms.ModelForm):
 
         return user
 
-
     class Meta:
-        '''Configuration of the form'''
+        """Configuration of the form"""
+
         model = CustomUser
-        fields = (
-            'email', 'username', 'password', 'is_active', 'role'
-        )
-        widgets = {
-            'password': forms.PasswordInput()
-        }
+        fields = ("email", "username", "password", "is_active", "role")
+        widgets = {"password": forms.PasswordInput()}
