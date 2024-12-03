@@ -13,20 +13,21 @@ class SampleTests(APITestCase):
 
     def test_sample(self) -> None:
         """Test the sample API"""
+        path = "/api/sample/sample_id"
         # GET /sample
         response = self.client.get("/api/sample", headers=self.headers, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # GET /sample/id
-        response = self.client.get("/api/sample/sample_id", headers=self.headers, format="json")
+        response = self.client.get(path, headers=self.headers, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # POST /sample
         response = self.client.post("/api/sample", data={}, headers=self.headers, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # PUT /sample/id
-        response = self.client.put("/api/sample/sample_id", data={}, headers=self.headers, format="json")
+        response = self.client.put(path, data={}, headers=self.headers, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # DELETE /sample/id
-        response = self.client.delete("/api/sample/sample_id", data={}, headers=self.headers, format="json")
+        response = self.client.delete(path, data={}, headers=self.headers, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # POST /sample/non-generic
         response = self.client.post(

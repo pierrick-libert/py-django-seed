@@ -40,12 +40,12 @@ class OrderListViewMixin(ListView):
 
     ordering_fields: list[str] = []
 
-    # pylint: disable=bare-except
+    # pylint: disable=broad-exception-caught
     def get_ordering(self) -> str | None:
         """Get ordering from url"""
         try:
             return self.request.GET.get("ordering", None) or super().get_ordering()[0]
-        except:
+        except Exception:
             return None
 
     def get_context_data(self, **kwargs) -> RequestContext:
